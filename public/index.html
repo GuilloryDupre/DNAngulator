@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>DNAngulator</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="styles.css" rel="stylesheet">
+    <script type="module" src="script.js"></script>
+</head>
+
+<body>
+    <h1>DNAngulator</h1>
+    <div class="profile-count">
+        <label for="number">Number of profiles:</label>
+        &nbsp;
+        <input id="number" type="number" min="2" step="1" value="3" />
+    </div>
+    <div class="profile-ids">
+        <input class="id" placeholder="Profile ID #1" value="" />
+        <input class="id" placeholder="Profile ID #2" value="" />
+        <input class="id" placeholder="Profile ID #3" value="" />
+    </div>
+    <button id="dnangulate">DNAngulate</button>
+    <div class="filters">
+        <label for="common-ancestors">Common Ancestors:</label>
+        <select id="common-ancestors" disabled></select>
+        &nbsp;
+        <label for="trees">Trees:</label>
+        <select id="trees" disabled></select>
+    </div>
+    <div class="trees">
+        <table>
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</body>
+
+</html>
