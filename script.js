@@ -6,7 +6,7 @@ const DEPTH = 10;
 const $ = document.querySelector.bind(document);
 const $$ = selector => [...document.querySelectorAll(selector)];
 
-//authenticate();
+authenticate();
 
 $('#dnangulate').addEventListener('click', async function () {
     this.disabled = true;

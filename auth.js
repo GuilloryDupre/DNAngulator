@@ -46,7 +46,7 @@ async function login(authcode) {
     try {
         const url = `https://api.wikitree.com/api.php?action=clientLogin&authcode=${authcode}`;
         console.log(url);
-        const resp = await fetch(url);
+        const resp = await fetch(url, { credentials: 'include' });
         json = await resp.json();
         console.log('login()');
         console.log('authcode', authcode);
@@ -64,7 +64,7 @@ async function checkLogin(userId) {
     try {
         const url = `https://api.wikitree.com/api.php?action=clientLogin&checkLogin=${userId}`;
         console.log(url);
-        const resp = await fetch(url);
+        const resp = await fetch(url, { credentials: 'include' });
         json = await resp.json();
         console.log('checkLogin()');
         console.log('userId', userId);
@@ -82,7 +82,7 @@ async function logout() {
     try {
         const url = `https://api.wikitree.com/api.php?action=clientLogin&doLogout=1`;
         console.log(url);
-        const resp = await fetch(url);
+        const resp = await fetch(url, { credentials: 'include' });
         json = await resp.json();
         console.log('logout()');
         console.log(JSON.stringify(json, null, 2));
