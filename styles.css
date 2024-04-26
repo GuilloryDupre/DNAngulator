@@ -1,0 +1,146 @@
+html,
+body,
+div,
+h1,
+p {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    font-family: Open Sans, sans-serif;
+    font-weight: 400;
+    color: #50555a;
+    overscroll-behavior: none;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: lightgrey;
+    padding: 0.5em;
+    gap: 1em;
+}
+
+body:not([data-company="gedmatch"]) .gedmatch {
+    display: none;
+}
+
+h1 {
+    text-align: center;
+}
+
+.status {
+    font-family: monospace;
+    font-size: 16px;
+    background: white;
+    padding: 1ch;
+    margin: 0;
+}
+
+.auth {
+    display: flex;
+    gap: 1ch;
+}
+
+.auth {
+    white-space: nowrap;
+}
+
+.profile-count > input {
+    width: 5ch;
+    text-align: right;
+}
+
+.profile-count {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    grid-gap: 5px;
+}
+
+.profile-count label {
+    text-align: right;
+}
+
+.profile-count label:after {
+    content: ":";
+}
+
+.profile-ids {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+}
+
+.filters label {
+    text-align: center;
+}
+
+.trees {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 0.5em;
+}
+
+table,
+th,
+th>td {
+    border: 2px solid #3b3e41;
+    border-collapse: collapse;
+}
+
+tr:hover {
+    background-color: #eaeaea;
+}
+
+tbody>tr:first-child>td {
+    font-weight: bold;
+    border-top: 2px solid #3b3e41;
+    border-bottom: 2px solid #3b3e41;
+}
+
+tr>td {
+    border-left: 2px solid #3b3e41;
+    border-right: 2px solid #3b3e41;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    text-align: center;
+    padding: 0.25em;
+}
+
+th {
+    font-weight: bold;
+}
+
+a.badge {
+    border: 0;
+    margin-left: 0.5ch;
+    cursor: pointer;
+}
+
+a.badge:hover {
+    background-color: #ffe270;
+}
+
+a.badge.clicked {
+    filter: grayscale(1);
+}
+
+span.margin-right {
+    margin-right: 0.5ch;
+}

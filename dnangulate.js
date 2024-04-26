@@ -1,9 +1,9 @@
-const DEPTH = 10;
+import { getAncestors } from './api.js';
 
-export async function DNAngulate(...ids) {
-    const persons = await Promise.all(ids.map(downloadPerson));
+export async function DNAngulate(depth, ...ids) {
+    const persons = await Promise.all(ids.map(id => downloadPerson(id, depth)));
     const commonAncestors = identifyCommonAncestors(persons);
-    persons.forEach(person => person.paths = computePaths(person));
+    persons.forEach(person => person.paths = computePaths(person, depth));
     persons.forEach(person => {
         person.paths = person.paths.filter(path => {
             return filterByAncestors(path, commonAncestors);
@@ -34,28 +34,14 @@ export async function DNAngulate(...ids) {
     return triangulations;
 }
 
-async function downloadPerson(key) {
-    const fields = [
-        'Name',
-        'FirstName',
-        'MiddleName',
-        'LastNameAtBirth',
-        'LastNameCurrent',
-        'Gender',
-        'BirthDateDecade',
-        'DeathDateDecade',
-        'IsLiving',
-        'Father',
-        'Mother',
-        'Id',
-        'Key'
-    ];
-    const url = `https://api.wikitree.com/api.php?action=getAncestors&key=${key}&depth=${DEPTH}&fields=${fields}&resolveRedirect=1&appId=DNAngulator`;
-    const resp = await fetch(url);
-    const json = await resp.json();
+async function downloadPerson(key, depth) {
+    const json = await getAncestors(key, depth);
     const [person, ...ancestors] = json[0].ancestors;
 
-    console.log(key, DEPTH, 'DEPTH', json[0].ancestors.length - 1);
+    //console.log(key, 'depth', depth, json[0].ancestors.length - 1);
+
+    //console.log({ person, ancestors });
+
     return addChildren([person, ...ancestors]);
 }
 
@@ -117,15 +103,15 @@ function identifyCommonAncestors(persons) {
         }
         return true;
     });
-    console.log(commonAncestors.length, 'common ancestors');
+    //console.log(commonAncestors.length, 'common ancestors');
     return commonAncestors;
 }
 
-function computePaths(person) {
+function computePaths(person, depth) {
     const { ancestors } = person;
     const paths = [];
-    for (let i = 0; i <= parseInt('1'.repeat(DEPTH), 2); i++) {
-        const binary = i.toString(2).padStart(DEPTH, '0');
+    for (let i = 0; i <= parseInt('1'.repeat(10), 2); i++) {
+        const binary = i.toString(2).padStart(10, '0');
         const path = [person.Id];
         for (const digit of binary) {
             const father = !!Number(digit);
@@ -183,8 +169,8 @@ function formatPathCombos(pathCombos, persons) {
         ...persons,
         ...persons.map(({ ancestors }) => ancestors)
     ].flat(1).map(person => {
-        const { Id, Key, Gender, FirstName, MiddleName, LastNameAtBirth, LastNameCurrent, BirthDateDecade, DeathDateDecade, IsLiving } = person;
-        return { Id, Key, Gender, FirstName, MiddleName, LastNameAtBirth, LastNameCurrent, BirthDateDecade, DeathDateDecade, IsLiving };
+        const { Id, Name, Gender, FirstName, MiddleName, LastNameAtBirth, LastNameCurrent, BirthDateDecade, DeathDateDecade, IsLiving } = person;
+        return { Id, Name, Gender, FirstName, MiddleName, LastNameAtBirth, LastNameCurrent, BirthDateDecade, DeathDateDecade, IsLiving };
     });
 
     const triangulations = pathCombos.map(([k, v]) => {

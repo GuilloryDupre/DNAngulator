@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>DNAngulator</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="styles.css" rel="stylesheet">
+    <script type="module" src="script.js"></script>
+</head>
+
+<body data-company="gedmatch">
+    <h1>DNAngulator</h1>
+    <!--<h4 class="status">Checking login status&hellip;</h4>-->
+    <div class="auth">
+        <a href="https://api.wikitree.com/" target="_blank">Login at WikiTree</a>
+        <!--<form action="https://api.wikitree.com/api.php" method="POST">
+            <input type="hidden" name="action" value="clientLogin">
+            <input type="hidden" class="returnURL" name="returnURL">
+            <input type="submit" value="Login at WikiTree" id="login">
+        </form>
+        <button id="logout">Logout</button>-->
+    </div>
+    <div class="profile-count">
+        <label for="number">Profiles</label>
+        <input id="number" type="number" min="2" step="1" value="3" />
+
+        <label for="chromosome">Chromosome</label>
+        <input id="chromosome" type="number" min="1" max="22" step="1" value="22" />
+
+        <label for="centimorgans">Centimorgans</label>
+        <input id="centimorgans" type="number" min="7" step="0.1" value="7" />
+
+        <label for="company">Company</label>
+        <select id="company">
+            <option value="gedmatch">GEDmatch</option>
+            <option value="myheritage">MyHeritage</option>
+            <option value="23andme">23andMe</option>
+        </select>
+    </div>
+    <div class="profile-ids">
+        <div class="profile">
+            <input class="first-name" placeholder="First Name #1" value="" />
+            <input class="id" placeholder="Profile ID #1" value="" />
+            <input class="gedmatch" placeholder="GEDmatch Kit #1" value="" />
+        </div>
+        <div class="profile">
+            <input class="first-name" placeholder="First Name #2" value="" />
+            <input class="id" placeholder="Profile ID #2" value="" />
+            <input class="gedmatch" placeholder="GEDmatch Kit #2" value="" />
+        </div>
+        <div class="profile">
+            <input class="first-name" placeholder="First Name #3" value="" />
+            <input class="id" placeholder="Profile ID #3" value="" />
+            <input class="gedmatch" placeholder="GEDmatch Kit #3" value="" />
+        </div>
+    </div>
+    <button id="dnangulate">DNAngulate</button>
+    <div class="filters">
+        <label for="common-ancestors">Common Ancestors:</label>
+        <select id="common-ancestors" disabled></select>
+        &nbsp;
+        <label for="trees">Trees:</label>
+        <select id="trees" disabled></select>
+    </div>
+    <div>
+        Click the <a class="badge" style="margin-left: 0;"><img src="dna-confirmation-badge.gif" width="38"
+                height="12"></a> badges to copy confirmation text to clipboard.
+    </div>
+    <div class="trees">
+        <table>
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</body>
+
+</html>
