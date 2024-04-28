@@ -42,53 +42,27 @@ export async function authenticate() {
 
 async function login(authcode) {
     disableButtons();
-    let json;
-    try {
-        const url = `https://api.wikitree.com/api.php?action=clientLogin&authcode=${authcode}`;
-        console.log(url);
-        const resp = await fetch(url, { credentials: 'include' });
-        json = await resp.json();
-        console.log('login()');
-        console.log('authcode', authcode);
-        console.log(JSON.stringify(json, null, 2));
-    } catch (e) {
-        console.error(e);
-    }
+    const url = `https://api.wikitree.com/api.php?action=clientLogin&authcode=${authcode}`;
+    const resp = await fetch(url, { credentials: 'include' });
+    const json = await resp.json();
     enableButtons();
     return json;
 }
 
 async function checkLogin(userId) {
     disableButtons();
-    let json;
-    try {
-        const url = `https://api.wikitree.com/api.php?action=clientLogin&checkLogin=${userId}`;
-        console.log(url);
-        const resp = await fetch(url, { credentials: 'include' });
-        json = await resp.json();
-        console.log('checkLogin()');
-        console.log('userId', userId);
-        console.log(JSON.stringify(json, null, 2));
-    } catch (e) {
-        console.error(e);
-    }
+    const url = `https://api.wikitree.com/api.php?action=clientLogin&checkLogin=${userId}`;
+    const resp = await fetch(url, { credentials: 'include' });
+    const json = await resp.json();
     enableButtons();
     return json;
 }
 
 async function logout() {
     disableButtons();
-    let json;
-    try {
-        const url = `https://api.wikitree.com/api.php?action=clientLogin&doLogout=1`;
-        console.log(url);
-        const resp = await fetch(url, { credentials: 'include' });
-        json = await resp.json();
-        console.log('logout()');
-        console.log(JSON.stringify(json, null, 2));
-    } catch (e) {
-        console.error(e);
-    }
+    const url = `https://api.wikitree.com/api.php?action=clientLogin&doLogout=1`;
+    const resp = await fetch(url, { credentials: 'include' });
+    const json = await resp.json();
     enableButtons();
     return json;
 }

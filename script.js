@@ -9,15 +9,32 @@ const $$ = selector => [...document.querySelectorAll(selector)];
 authenticate();
 
 $('#dnangulate').addEventListener('click', async function () {
+    const ids = $$('.id').map(({ value }) => value);
+    if (ids.findIndex(id => id.trim() === '') !== -1) {
+        alert('Fill out every WikiTree ID textbox.');
+        return;
+    }
+
     this.disabled = true;
     $('#common-ancestors').disabled = true;
     $('#trees').disabled = true;
 
-    const ids = $$('.id').map(({ value }) => value);
     const kits = $$('.gedmatch').map(({ value }) => value);
     const company = $('#company').value;
     updateURL(ids, kits, company);
-    const dnangulation = await DNAngulate(DEPTH, ...ids);
+    let dnangulation;
+    try {
+        $('button#dnangulate').classList.add('loading');
+        dnangulation = await DNAngulate(DEPTH, ...ids);
+    } catch (e) {
+        console.error(e);
+        alert('API request failed.');
+        this.disabled = false;
+        $('#common-ancestors').disabled = false;
+        $('#trees').disabled = false;
+        $('button#dnangulate').classList.remove('loading');
+        return;
+    }
     console.log(dnangulation);
     const { triangulations, allPersons: persons } = dnangulation;
 
@@ -167,7 +184,10 @@ $('#dnangulate').addEventListener('click', async function () {
                 }, {});
 
                 if (customFirstNames[ancestor.idStr]) {
-                    ancestor.customName = customFirstNames[ancestor.idStr] + ' ' + ancestor.name;
+                    ancestor.customName = customFirstNames[ancestor.idStr] + ' ' + ancestor.name.replace(
+                        customFirstNames[ancestor.idStr],
+                        ''
+                    ).replace(/\s+/g, ' ');
                     a.textContent = ancestor.customName;
                     const person = persons.find(({ Id }) => Id === ancestor.id);
                     person.customName = ancestor.customName;
@@ -303,6 +323,7 @@ $('#dnangulate').addEventListener('click', async function () {
     this.disabled = false;
     $('#common-ancestors').disabled = false;
     $('#trees').disabled = false;
+    $('button#dnangulate').classList.remove('loading');
 });
 
 function prettifyPerson(person) {
@@ -355,7 +376,7 @@ $('#number').addEventListener('input', function () {
 
             const input2 = document.createElement('input');
             input2.classList.add('id');
-            input2.placeholder = 'Profile ID #' + (i + 1);
+            input2.placeholder = 'WikiTree ID #' + (i + 1);
             div.appendChild(input2);
 
             div.innerHTML += '\n';
